@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:input_islemler/main.dart';
-import 'package:input_islemler/profil.dart';
-import 'package:input_islemler/yemek_ekle.dart';
+import 'file:///C:/Users/Kadriye/Desktop/YemekTarifleri/yemek_tarifleri/lib/sayfalar/profil.dart';
+import 'file:///C:/Users/Kadriye/Desktop/YemekTarifleri/yemek_tarifleri/lib/sayfalar/yemek_ekle.dart';
 
 class Anasayfa extends StatefulWidget {
   @override
