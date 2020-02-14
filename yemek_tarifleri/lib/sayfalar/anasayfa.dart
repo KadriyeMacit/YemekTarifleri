@@ -17,15 +17,16 @@ class HomePage extends State<Anasayfa> {
 
   final Firestore _firestore = Firestore.instance;
 
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primaryColor: Colors.green[300], accentColor: Colors.orange),
+      theme: ThemeData(primaryColor: Color(0xFF0EDED2), accentColor: Color(0xFFFc6076)),
       home: Scaffold(
         appBar: AppBar(
           title: Text("Anasayfa",),
-
         ),
         drawer: Drawer(
           child: ListView(
@@ -42,7 +43,8 @@ class HomePage extends State<Anasayfa> {
                 title: Text('Anasayfa'),
                 leading: Icon(Icons.home),
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => Anasayfa()));
                 },
               ),
               ListTile(
@@ -149,3 +151,14 @@ class HomePage extends State<Anasayfa> {
     );
   }
 }
+
+
+const List<Color> koyuRenk = [
+  Color(0xFF0EDED2),
+  Color(0xFF03A0FE),
+];
+
+const List<Color> acikRenk = [
+  Color(0xFFFF9945),
+  Color(0xFFFc6076),
+];
