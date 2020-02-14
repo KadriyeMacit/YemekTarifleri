@@ -9,11 +9,11 @@ void main() => runApp(MyApp());
 class MyApp extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
-    return InputIslemleri();
+    return YemekIslemleri();
   }
 }
 
-class InputIslemleri extends State<MyApp>
+class YemekIslemleri extends State<MyApp>
 {
   @override
   Widget build(BuildContext context) {

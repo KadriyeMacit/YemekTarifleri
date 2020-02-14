@@ -40,7 +40,7 @@ class Login extends StatelessWidget {
                       children: <Widget>[
 
                         Padding(
-                          padding: EdgeInsets.only(right: 40, bottom: 30),
+                          padding: EdgeInsets.only(right: 40, bottom: 15, top:10),
                           child: Container(
                             width: MediaQuery.of(context).size.width - 40,
                             child: Material(
