@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:input_islemler/tasarim/imputWidget.dart';
+import 'package:input_islemler/sayfalar/aaa.dart';
+
 
 class Login extends StatelessWidget {
   @override

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:input_islemler/tasarim/background.dart';
-import 'package:input_islemler/tasarim/imputWidget.dart';
+import 'package:input_islemler/sayfalar/bbb.dart';
 import 'package:input_islemler/tasarim/loginUi.dart';
 
 
