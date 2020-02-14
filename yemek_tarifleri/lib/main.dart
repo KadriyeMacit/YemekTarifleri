@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:input_islemler/sayfalar/bbb.dart';
+import 'file:///C:/Users/Kadriye/Desktop/YemekTarifleri/yemek_tarifleri/lib/tasarim/bbb.dart';
 import 'package:input_islemler/tasarim/loginUi.dart';
 
 
@@ -29,8 +29,9 @@ class InputIslemleri extends State<MyApp>
 
           body:   Stack(
             children: <Widget>[
-              Login(),
-              Background()
+              Background(),
+              Login()
+
 
             ],
           )
