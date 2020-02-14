@@ -35,7 +35,7 @@ class HomePage extends State<Anasayfa> {
                 accountName: Text("Kadriye Macit"),
                 accountEmail: Text("kadriyemacit9655@gmail.com"),
                 currentAccountPicture: CircleAvatar(
-                  backgroundImage: AssetImage("images/prof.png"),
+                  backgroundImage: AssetImage("resimler/anime_a.png"),
                 ),
               ),
               ListTile(

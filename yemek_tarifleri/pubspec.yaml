@@ -53,6 +53,9 @@ flutter:
     - resimler/kumpir.jpg
     - resimler/limon.jpg
     - resimler/pizza.jpg
+    - resimler/insta.png
+    - resimler/you.png
+    - resimler/youtube.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
