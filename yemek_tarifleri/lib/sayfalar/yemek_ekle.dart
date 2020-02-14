@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:input_islemler/sayfalar/anasayfa.dart';
 
 class YemekSayfasi extends StatefulWidget {
   @override
@@ -42,16 +43,19 @@ class FoodPage extends State<YemekSayfasi> {
 
                       Container(
                         width: 220,
-                          height: 170,
+                          height: 150,
                           child: Image.asset("resimler/yemeeek.png")
                       ),
+
 
                       Padding(
                         padding: const EdgeInsets.only(top:3),
                         child: Text(
-                            "Malzemeler:",
+                          "Yemeğin ismi:",
                           style: TextStyle(
                             fontSize: 16,
+                              color: Color(0xFFFc6076),
+                              fontWeight: FontWeight.bold
                           ),
                         ),
                       ),
@@ -59,7 +63,36 @@ class FoodPage extends State<YemekSayfasi> {
                       Padding(
                         padding: const EdgeInsets.only(top:3),
                         child: TextField(
-                                maxLines: 3,
+                          maxLines: 1,
+                          decoration: InputDecoration(
+                            hintText: ("Menemen"),
+                            border: OutlineInputBorder(
+                              //dışını kutu içine alır
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+
+                          ),
+                        ),
+                      ),
+
+
+
+                      Padding(
+                        padding: const EdgeInsets.only(top:3),
+                        child: Text(
+                            "Malzemeler:",
+                          style: TextStyle(
+                            fontSize: 16,
+                              color: Color(0xFFFc6076),
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(top:3),
+                        child: TextField(
+                                maxLines: 2,
                               decoration: InputDecoration(
                                 hintText: ("1 kuru soğan, "
                                     "2 domates"),
@@ -79,6 +112,8 @@ class FoodPage extends State<YemekSayfasi> {
                             "Yapılışı:",
                           style: TextStyle(
                             fontSize: 16,
+                              color: Color(0xFFFc6076),
+                              fontWeight: FontWeight.bold
                           ),
                         ),
                       ),
@@ -86,7 +121,7 @@ class FoodPage extends State<YemekSayfasi> {
                       Padding(
                         padding: const EdgeInsets.only(top:3),
                         child: TextField(
-                            maxLines: 5,
+                            maxLines: 3,
                           decoration: InputDecoration(
                             hintText: ("Soğanları ince ince doğrayıp "
                                 "salça ile beraber tavada kızartıyoruz."),
@@ -108,7 +143,8 @@ class FoodPage extends State<YemekSayfasi> {
                           child: Text("Kaydet"),
                           color: Color(0xFFFc6076),
                           onPressed: (){
-
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => Anasayfa()));
                           },
                         ),
                       )

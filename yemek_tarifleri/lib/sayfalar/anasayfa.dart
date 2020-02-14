@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:input_islemler/main.dart';
 import 'file:///C:/Users/Kadriye/Desktop/YemekTarifleri/yemek_tarifleri/lib/sayfalar/profil.dart';
 import 'file:///C:/Users/Kadriye/Desktop/YemekTarifleri/yemek_tarifleri/lib/sayfalar/yemek_ekle.dart';
+import 'package:input_islemler/sayfalar/yemekler.dart';
 
 class Anasayfa extends StatefulWidget {
   @override
@@ -101,7 +102,14 @@ class HomePage extends State<Anasayfa> {
                         fontSize: 16,
                         fontStyle: FontStyle.italic),
                       textAlign: TextAlign.center,),
-                    )),
+                    ),
+
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => YemekListesi()));
+                  },
+
+                ),
               ),
 
               Card(
@@ -114,7 +122,14 @@ class HomePage extends State<Anasayfa> {
                             fontSize: 16,
                             fontStyle: FontStyle.italic),
                         textAlign: TextAlign.center,),
-                    )),
+                    ),
+
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => YemekListesi()));
+                  },
+
+                ),
               ),
 
               Card(
@@ -127,7 +142,14 @@ class HomePage extends State<Anasayfa> {
                             fontSize: 16,
                             fontStyle: FontStyle.italic),
                         textAlign: TextAlign.center,),
-                    )),
+                    ),
+
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => YemekListesi()));
+                  },
+
+                ),
               ),
 
               Card(
@@ -140,7 +162,14 @@ class HomePage extends State<Anasayfa> {
                             fontSize: 16,
                             fontStyle: FontStyle.italic),
                         textAlign: TextAlign.center,),
-                    )),
+                    ),
+
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => YemekListesi()));
+                  },
+
+                ),
               ),
 
 
