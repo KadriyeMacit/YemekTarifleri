@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:input_islemler/main.dart';
 import 'file:///C:/Users/Kadriye/Desktop/YemekTarifleri/yemek_tarifleri/lib/sayfalar/profil.dart';
 import 'file:///C:/Users/Kadriye/Desktop/YemekTarifleri/yemek_tarifleri/lib/sayfalar/yemek_ekle.dart';
-import 'package:input_islemler/sayfalar/yemekler.dart';
+
 
 class Anasayfa extends StatefulWidget {
   @override
@@ -112,36 +112,75 @@ class HomePage extends State<Anasayfa> {
                                                   .size
                                                   .width,
                                               height: 200,
-                                              child: Image.network(
-                                                "${mypost['image']}",
-                                                fit: BoxFit.fill,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Image.network(
+                                                  "${mypost['image']}",
+                                                  fit: BoxFit.fill,
+                                                ),
                                               ),
                                             ),
 
                                               Padding(
                                                 padding: const EdgeInsets.only(bottom:8.0),
-                                                child: Text(
-                                                  "Yemek adı: ${mypost['name']}",
-                                                  style: TextStyle(fontSize: 16),
-                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Text(
+                                                      "Yemek adı: ",
+                                                      style: TextStyle(fontSize: 16,
+                                                        fontWeight: FontWeight.bold,
+                                                        color:  Color(0xFFFc6076)
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      "${mypost['name']}",
+                                                      style: TextStyle(fontSize: 16),
+                                                    ),
+                                                  ],
+                                                )
                                               ),
 
 
                                             Expanded(
                                               child: SingleChildScrollView(
-                                                child: Text(
-                                                  "Malzemeler: ${mypost['material']}",
-                                                  style: TextStyle(fontSize: 16),
-                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Text(
+                                                      "Malzemeler: ",
+                                                      style: TextStyle(fontSize: 16,
+                                                          fontWeight: FontWeight.bold,
+                                                          color:  Color(0xFFFc6076)
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      "${mypost['material']}",
+                                                      style: TextStyle(fontSize: 16),
+                                                    ),
+                                                  ],
+                                                )
                                               ),
                                             ),
 
                                             Expanded(
                                               child: SingleChildScrollView(
-                                                child: Text(
-                                                  "Yapılışı: ${mypost['recipe']}",
-                                                  style: TextStyle(fontSize: 16),
-                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Text(
+                                                      "Yapılışı: ",
+                                                      style: TextStyle(fontSize: 16,
+                                                          fontWeight: FontWeight.bold,
+                                                          color:  Color(0xFFFc6076)
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      "${mypost['recipe']}",
+                                                      style: TextStyle(fontSize: 16),
+                                                    ),
+                                                  ],
+                                                )
                                               ),
                                             ),
                                             
