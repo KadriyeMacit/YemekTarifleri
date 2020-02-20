@@ -1,4 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:input_islemler/sayfalar/anasayfa.dart';
@@ -11,22 +12,84 @@ class YemekSayfasi extends StatefulWidget {
 }
 
 class FoodPage extends State<YemekSayfasi> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final Firestore _firestore = Firestore.instance;
+  String id;
+  final db = Firestore.instance;
+  final _formKey2 = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
+  final _formKey3 = GlobalKey<FormState>();
+
+  String name, malzeme, yapilis;
+
+  TextFormField buildTextFormField() {
+    return TextFormField(
+      maxLines: 1,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          //dışını kutu içine alır
+            borderRadius:
+            BorderRadius.all(Radius.circular(10))),
+        hintText: 'Menemen',
+
+      ),
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Lütfen bir şey yazın';
+        }
+      },
+      onSaved: (value) => name = value,
+    );
+  }
+
+  TextFormField malzemelerForm() {
+    return TextFormField(
+      maxLines: 2,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+            borderRadius:
+            BorderRadius.all(Radius.circular(10))),
+        hintText: 'yumurta, soğan, domates',
+      ),
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Lütfen bir şey yazın';
+        }
+      },
+      onSaved: (value) => malzeme = value,
+    );
+  }
+
+  TextFormField yapilisForm() {
+    return TextFormField(
+      maxLines: 3,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+            borderRadius:
+            BorderRadius.all(Radius.circular(10))),
+        hintText: 'soğanları tavada kızartın',
+      ),
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Lütfen bir şey yazın';
+        }
+      },
+      onSaved: (value) => yapilis = value,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return  MaterialApp(
+
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primaryColor: Color(0xFF0EDED2), accentColor: Color(0xFFFc6076)),
+          primaryColor: Color(0xFF0EDED2), accentColor: Color(0xFFFc6076)
+      ),
 
       home: Scaffold(
           appBar: AppBar(
-            title: Text("Yeni Tarif"),
+            title: Text('Yeni Tarif'),
           ),
-
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -36,13 +99,14 @@ class FoodPage extends State<YemekSayfasi> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
+
                       Text(
-                          "Resim eklemek için tıklayın",
+                        "Resim eklemek için tıklayın",
                         textAlign: TextAlign.center,
                       ),
 
                       Container(
-                        width: 220,
+                          width: 220,
                           height: 150,
                           child: Image.asset("resimler/yemeeek.png")
                       ),
@@ -53,7 +117,7 @@ class FoodPage extends State<YemekSayfasi> {
                         child: Text(
                           "Yemeğin ismi:",
                           style: TextStyle(
-                            fontSize: 16,
+                              fontSize: 16,
                               color: Color(0xFFFc6076),
                               fontWeight: FontWeight.bold
                           ),
@@ -62,56 +126,18 @@ class FoodPage extends State<YemekSayfasi> {
 
                       Padding(
                         padding: const EdgeInsets.only(top:3),
-                        child: TextField(
-                          maxLines: 1,
-                          decoration: InputDecoration(
-                            hintText: ("Menemen"),
-                            border: OutlineInputBorder(
-                              //dışını kutu içine alır
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-
-                          ),
-                        ),
-                      ),
-
-
-
-                      Padding(
-                        padding: const EdgeInsets.only(top:3),
-                        child: Text(
-                            "Malzemeler:",
-                          style: TextStyle(
-                            fontSize: 16,
-                              color: Color(0xFFFc6076),
-                              fontWeight: FontWeight.bold
-                          ),
-                        ),
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.only(top:3),
-                        child: TextField(
-                                maxLines: 2,
-                              decoration: InputDecoration(
-                                hintText: ("1 kuru soğan, "
-                                    "2 domates"),
-
-                                border: OutlineInputBorder(
-                                  //dışını kutu içine alır
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-
-                              ),
+                        child: Form(
+                          key: _formKey,
+                          child: buildTextFormField(),
                         ),
                       ),
 
                       Padding(
                         padding: const EdgeInsets.only(top:3),
                         child: Text(
-                            "Yapılışı:",
+                          "Malzemeler:",
                           style: TextStyle(
-                            fontSize: 16,
+                              fontSize: 16,
                               color: Color(0xFFFc6076),
                               fontWeight: FontWeight.bold
                           ),
@@ -120,58 +146,65 @@ class FoodPage extends State<YemekSayfasi> {
 
                       Padding(
                         padding: const EdgeInsets.only(top:3),
-                        child: TextField(
-                            maxLines: 3,
-                          decoration: InputDecoration(
-                            hintText: ("Soğanları ince ince doğrayıp "
-                                "salça ile beraber tavada kızartıyoruz."),
-
-                            border: OutlineInputBorder(
-                              //dışını kutu içine alır
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-
+                        child: Form(
+                          key: _formKey2,
+                          child: malzemelerForm(),
                         ),
+                      ),
 
+                      Padding(
+                        padding: const EdgeInsets.only(top:3),
+                        child: Text(
+                          "Yapılışı:",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Color(0xFFFc6076),
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(top:3),
+                        child: Form(
+                          key: _formKey3,
+                          child: yapilisForm(),
                         ),
                       ),
 
 
                       Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.only(top:8.0),
                         child: RaisedButton(
-                          child: Text("Kaydet"),
+                          onPressed: createData,
+                          child: Text('Kaydet', style: TextStyle(color: Colors.white)),
                           color: Color(0xFFFc6076),
-                          onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => Anasayfa()));
-                          },
                         ),
-                      )
-
+                      ),
 
 
                     ],
                   ),
                 ),
               ),
-            )
-
-
-
-          )
-      ),
+            ),
+          ),
+        ),
     );
+
   }
+
+  void createData() async {
+    if (_formKey.currentState.validate() && _formKey2.currentState.validate()
+    && _formKey3.currentState.validate()) {
+      _formKey.currentState.save();
+      _formKey2.currentState.save();
+      _formKey3.currentState.save();
+      DocumentReference ref = await db.collection('post').
+      add({'name': '$name', 'material': "$malzeme", 'recipe': "$yapilis"});
+      setState(() => id = ref.documentID);
+      print(ref.documentID);
+    }
+  }
+
 }
-
-
-const List<Color> koyuRenk = [
-  Color(0xFF0EDED2),
-  Color(0xFF03A0FE),
-];
-
-const List<Color> acikRenk = [
-  Color(0xFFFF9945),
-  Color(0xFFFc6076),
-];

@@ -18,169 +18,152 @@ class HomePage extends State<Anasayfa> {
 
   final Firestore _firestore = Firestore.instance;
 
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primaryColor: Color(0xFF0EDED2), accentColor: Color(0xFFFc6076)),
+      theme: ThemeData(
+          primaryColor: Color(0xFF0EDED2), accentColor: Color(0xFFFc6076)),
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("Anasayfa",),
-        ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              UserAccountsDrawerHeader(
-                accountName: Text("Kadriye Macit"),
-                accountEmail: Text("kadriyemacit9655@gmail.com"),
-                currentAccountPicture: CircleAvatar(
-                  backgroundImage: AssetImage("resimler/anime_a.png"),
-                ),
-              ),
-              ListTile(
-                title: Text('Anasayfa'),
-                leading: Icon(Icons.home),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => Anasayfa()));
-                },
-              ),
-              ListTile(
-                title: Text('Profilim'),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => ProfilSayfasi()));
-
-                },
-                leading: Icon(Icons.person),
-              ),
-              ListTile(
-                title: Text('Çıkış yap'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                leading: Icon(Icons.remove_circle),
-              ),
-            ],
+          appBar: AppBar(
+            title: Text(
+              "Anasayfa",
+            ),
           ),
-        ),
-
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add,),
-          onPressed: (){
-
-            Navigator.push(context, MaterialPageRoute(
-                builder: (context) => YemekSayfasi()));
-
-          },
-        ),
-
-
-
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Yemek Tarifleri',
-                  style: TextStyle(fontSize: 18,
-                  color: Colors.black),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                UserAccountsDrawerHeader(
+                  accountName: Text("Kadriye Macit"),
+                  accountEmail: Text("kadriyemacit9655@gmail.com"),
+                  currentAccountPicture: CircleAvatar(
+                    backgroundImage: AssetImage("resimler/anime_a.png"),
+                  ),
                 ),
-              ),
-              Card(
-                child: ListTile(
-                    title: Image.asset("resimler/pizza.jpg"),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Text("Kendime özgü Tavuklu Pizza!",
-                        style: TextStyle(color: Colors.black,
-                        fontSize: 16,
-                        fontStyle: FontStyle.italic),
-                      textAlign: TextAlign.center,),
-                    ),
-
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => YemekListesi()));
+                ListTile(
+                  title: Text('Anasayfa'),
+                  leading: Icon(Icons.home),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Anasayfa()));
                   },
-
                 ),
-              ),
-
-              Card(
-                child: ListTile(
-                    title: Image.asset("resimler/bamya.jpg"),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Text("Yazdan koydum dolaba, şimdi oldu miss gibi bamya!",
-                        style: TextStyle(color: Colors.black,
-                            fontSize: 16,
-                            fontStyle: FontStyle.italic),
-                        textAlign: TextAlign.center,),
-                    ),
-
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => YemekListesi()));
+                ListTile(
+                  title: Text('Profilim'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfilSayfasi()));
                   },
-
+                  leading: Icon(Icons.person),
                 ),
-              ),
-
-              Card(
-                child: ListTile(
-                    title: Image.asset("resimler/kumpir.jpg"),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Text("Öyle bir kumpir yaptım ki masanın starı oldu!",
-                        style: TextStyle(color: Colors.black,
-                            fontSize: 16,
-                            fontStyle: FontStyle.italic),
-                        textAlign: TextAlign.center,),
-                    ),
-
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => YemekListesi()));
+                ListTile(
+                  title: Text('Çıkış yap'),
+                  onTap: () {
+                    Navigator.pop(context);
                   },
-
+                  leading: Icon(Icons.remove_circle),
                 ),
-              ),
-
-              Card(
-                child: ListTile(
-                    title: Image.asset("resimler/limon.jpg"),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Text("Kana kan, cana can katan bir kek!",
-                        style: TextStyle(color: Colors.black,
-                            fontSize: 16,
-                            fontStyle: FontStyle.italic),
-                        textAlign: TextAlign.center,),
-                    ),
-
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => YemekListesi()));
-                  },
-
-                ),
-              ),
-
-
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
+          floatingActionButton: FloatingActionButton(
+            child: Icon(
+              Icons.add,
+            ),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => YemekSayfasi()));
+            },
+          ),
+          body: StreamBuilder(
+            stream: Firestore.instance.collection("post").snapshots(),
+            builder: (context, snaphot) {
+              if (!snaphot.hasData) {
+                const Text("Yükleniyor");
+              } else {
+                return ListView.builder(
+                    itemCount: snaphot.data.documents.length,
+                    itemBuilder: (context, index) {
+                      DocumentSnapshot mypost = snaphot.data.documents[index];
+                      return Stack(
+                        children: <Widget>[
+                          Column(
+                            children: <Widget>[
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 350.0,
+                                child: Padding(
+                                  padding: EdgeInsets.only(top: 8, bottom: 8),
+                                  child: Material(
+                                    color: Colors.white,
+                                    elevation: 14,
+                                    shadowColor: Color(0x802196F3),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              height: 200,
+                                              child: Image.network(
+                                                "${mypost['image']}",
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ),
+
+                                              Padding(
+                                                padding: const EdgeInsets.only(bottom:8.0),
+                                                child: Text(
+                                                  "Yemek adı: ${mypost['name']}",
+                                                  style: TextStyle(fontSize: 16),
+                                                ),
+                                              ),
+
+
+                                            Expanded(
+                                              child: SingleChildScrollView(
+                                                child: Text(
+                                                  "Malzemeler: ${mypost['material']}",
+                                                  style: TextStyle(fontSize: 16),
+                                                ),
+                                              ),
+                                            ),
+
+                                            Expanded(
+                                              child: SingleChildScrollView(
+                                                child: Text(
+                                                  "Yapılışı: ${mypost['recipe']}",
+                                                  style: TextStyle(fontSize: 16),
+                                                ),
+                                              ),
+                                            ),
+                                            
+                                            
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      );
+                    });
+              }
+            },
+          )),
     );
   }
 }
-
 
 const List<Color> koyuRenk = [
   Color(0xFF0EDED2),
