@@ -1,134 +1,119 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ProfilSayfasi extends StatefulWidget {
+
+class ProfilSayfasi extends StatelessWidget {
+  static final String path = "lib/src/pages/profile/profile5.dart";
   @override
-  State<StatefulWidget> createState() {
-    return ProfilePage();
-  }
-}
+  Widget build(BuildContext context){
+    final Color color1 = Color(0xFF0EDED2);
+    final Color color2 = Color(0xFFFc6076);
 
-class ProfilePage extends State<ProfilSayfasi> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  final Firestore _firestore = Firestore.instance;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primaryColor: Colors.green[300], accentColor: Colors.orange),
-
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Profilim"),
-        ),
-
-
-        body: SingleChildScrollView(
-          child: Column(
-
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          Container(
+            height: 360,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50.0), bottomRight: Radius.circular(50.0)),
+                gradient: LinearGradient(
+                    colors: [color1,color2],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight
+                )
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 80),
+            child: Column(
               children: <Widget>[
-
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            CircleAvatar(
-                              radius: 50,
-                              backgroundImage: AssetImage("resimler/anime_b.png"),
-                            ),
-                          ],
+                Text("Profilim", style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28,
+                    fontStyle: FontStyle.italic
+                ),),
+                SizedBox(height: 20.0),
+                Expanded(
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        height: double.infinity,
+                        margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 10.0),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30.0),
+                            child: Image.asset("resimler/anime_b.png"),
                         ),
                       ),
-                    ),
-
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(35, 10, 35, 10),
-                  child: TextField(
-                      decoration: InputDecoration(
-                        hintText: ("Bir Tutam Fesleğen"),
-
-                        border: OutlineInputBorder(  //dışını kutu içine alır
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(10))
-                        ),
-                      ),
-                    textAlign: TextAlign.center,
+                    ],
                   ),
                 ),
-                
-
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(35, 0, 35, 10),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: ("Yemek yapmayı ve yeni lezzetler denemeyi"
-                          "çok seviyorum. Sağlıklı beslenmeye dikkat ederek,"
-                          "doğal besinler tüketmeye çalışıyorum."),
-                      hintMaxLines: 400,
-
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(10))
-                      ),
-                    ),
-                    textAlign: TextAlign.center,
-                    maxLines: 3,
-
-                  ),
-                ),
-
-
+                SizedBox(height: 10.0),
+                Text("Kadriye Macit", style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.0
+                ),),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 150,
-                        width: 100,
-                        child: Column(
-                          children: <Widget>[
-                           Image.asset("resimler/insta.png"),
-                            Text("/birtutamfeslegen",
-                                style: TextStyle(fontSize: 12))
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 200,
-                        width: 100,
-                        child: Column(
-                          children: <Widget>[
-                            Image.asset("resimler/you.png"),
-                            Text("/birtutamfeslegen",
-                            style: TextStyle(fontSize: 12),)
-                          ],
-                        ),
-                      ),
-                    )
-
-
-
+                    Icon(Icons.location_on, size: 16.0, color: Colors.grey,),
+                    Text("Ankara, Türkiye", style: TextStyle(color: Colors.grey.shade600),)
                   ],
+                ),
+                SizedBox(height: 5.0),
+                
+                SizedBox(height: 10.0),
+                Container(
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+                        margin: const EdgeInsets.only(top: 30 ,left: 20.0, right: 20.0,bottom: 20.0),
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [color1,color2],
+                            ),
+                            borderRadius: BorderRadius.circular(30.0)
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            
+                            IconButton(
+                              color: Colors.white,
+                              icon: Image.asset("resimler/insta.png"),
+                              onPressed: (){},
+                            ),
+                            Spacer(),
+                            IconButton(
+                              color: Colors.white,
+                              icon: Image.asset("resimler/youtube.png"),
+                              onPressed: (){},
+                            ),
+                            
+                          ],
+                        ),
+                      ),
+                      Center(
+                        child: FloatingActionButton(
+                          child: Icon(Icons.favorite, color: Colors.pink,),
+                          backgroundColor: Colors.white,
+                          onPressed: (){},
+                        ),
+                      ),
+                    ],
+                  ),
                 )
-
-
               ],
             ),
-        ),
+          ),
+
+          AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            actions: <Widget>[
+              
+            ],
+          ),
+        ],
       ),
     );
   }
