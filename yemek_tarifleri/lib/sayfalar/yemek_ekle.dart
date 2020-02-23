@@ -137,7 +137,7 @@ class FoodPage extends State<YemekSayfasi> {
         border: OutlineInputBorder(
             //dışını kutu içine alır
             borderRadius: BorderRadius.all(Radius.circular(10))),
-        hintText: 'Menemen',
+        hintText: 'Yemek ismi yazın',
       ),
       validator: (value) {
         if (value.isEmpty) {
@@ -154,7 +154,7 @@ class FoodPage extends State<YemekSayfasi> {
       decoration: InputDecoration(
         border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10))),
-        hintText: 'yumurta, soğan, domates',
+        hintText: 'Yemek için kullanılan malzemeleri yazın',
       ),
       validator: (value) {
         if (value.isEmpty) {
@@ -171,7 +171,7 @@ class FoodPage extends State<YemekSayfasi> {
       decoration: InputDecoration(
         border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10))),
-        hintText: 'soğanları tavada kızartın',
+        hintText: 'Yemeğin yapılışını yazın',
       ),
       validator: (value) {
         if (value.isEmpty) {
