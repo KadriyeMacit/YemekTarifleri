@@ -15,7 +15,6 @@ class Anasayfa extends StatefulWidget {
 
 class HomePage extends State<Anasayfa> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final Firestore _firestore = Firestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -61,15 +60,10 @@ class HomePage extends State<Anasayfa> {
                 ListTile(
                   title: Text('Çıkış yap'),
                   onTap: () {
-
-
-                    _auth.signOut().then((oturumKapatildi){
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => MyApp()
-                      ));
+                    _auth.signOut().then((oturumKapatildi) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MyApp()));
                     });
-
-
                   },
                   leading: Icon(Icons.remove_circle),
                 ),
@@ -95,6 +89,67 @@ class HomePage extends State<Anasayfa> {
                     itemCount: snaphot.data.documents.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot mypost = snaphot.data.documents[index];
+
+
+
+                      Future<void> _showChoiseDialog(BuildContext context) {
+                        return showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                  title: Text(
+                                    "Silmek istediğinize emin misiniz?",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(8.0))),
+                                  content: Container(
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          GestureDetector(
+                                            onTap: () {
+                                              var silenecek_veri = Firestore
+                                                  .instance
+                                                  .collection('post')
+                                                  .document(mypost.documentID)
+                                                  .delete();
+
+                                              debugPrint("$silenecek_veri");
+
+                                              debugPrint("Veri silindi!");
+
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text(
+                                              "Evet",
+                                              style: TextStyle(
+                                                  color: Color(0xFF0EDED2),
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text(
+                                              "Vazgeç",
+                                              style: TextStyle(
+                                                  color: Color(0xFF0EDED2),
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ],
+                                      )));
+                            });
+                      }
+
                       return Stack(
                         children: <Widget>[
                           Column(
@@ -123,11 +178,18 @@ class HomePage extends State<Anasayfa> {
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
-                                                child: Image.network(
-                                                  "${mypost['image']}",
-                                                  fit: BoxFit.fill,
+                                                child: InkWell(
+                                                    onTap: () {
+
+                                                      _showChoiseDialog(context);
+
+                                                    },
+                                                    child: Image.network(
+                                                      "${mypost['image']}",
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
                                             ),
                                             Padding(
                                                 padding: const EdgeInsets.only(
@@ -138,7 +200,8 @@ class HomePage extends State<Anasayfa> {
                                                   children: <Widget>[
                                                     Text(
                                                       "Yemek adı: ",
-                                                      textAlign: TextAlign.center,
+                                                      textAlign:
+                                                          TextAlign.center,
                                                       style: TextStyle(
                                                           fontSize: 16,
                                                           fontWeight:
@@ -151,7 +214,8 @@ class HomePage extends State<Anasayfa> {
                                                         "${mypost['name']}",
                                                         style: TextStyle(
                                                             fontSize: 16),
-                                                        textAlign: TextAlign.center,
+                                                        textAlign:
+                                                            TextAlign.center,
                                                       ),
                                                     ),
                                                   ],
@@ -175,9 +239,10 @@ class HomePage extends State<Anasayfa> {
                                                   Expanded(
                                                     child: Text(
                                                       "${mypost['material']}",
-                                                      textAlign: TextAlign.center,
-                                                      style:
-                                                          TextStyle(fontSize: 16),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: 16),
                                                     ),
                                                   ),
                                                 ],
@@ -202,9 +267,10 @@ class HomePage extends State<Anasayfa> {
                                                   Expanded(
                                                     child: Text(
                                                       "${mypost['recipe']}",
-                                                      textAlign: TextAlign.center,
-                                                      style:
-                                                      TextStyle(fontSize: 16),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: 16),
                                                     ),
                                                   ),
                                                 ],

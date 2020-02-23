@@ -107,13 +107,6 @@ class Login extends StatelessWidget {
                 ),
 
 
-              RaisedButton(
-                onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => Anasayfa()
-                  ));
-                },
-              ),
 
               Padding(
                 padding: EdgeInsets.only(bottom: 50),
