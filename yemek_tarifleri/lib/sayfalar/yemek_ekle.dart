@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:input_islemler/sayfalar/anasayfa.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class YemekSayfasi extends StatefulWidget {
   @override
@@ -30,52 +31,27 @@ class FoodPage extends State<YemekSayfasi> {
   var url;
 
   _openGallery(BuildContext context) async {
-
     var resim = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() //arayüze de yansıması için setState
-    {
+        {
       imageFile = resim;
     });
 
-
-    StorageReference ref = FirebaseStorage.instance
-        .ref()
-        .child("user")
-        .child("kadriye")
-        .child("yemek.png");
-    StorageUploadTask uploadTask = ref.putFile(imageFile);
-
-     url = await (await uploadTask.onComplete).ref.getDownloadURL();
-    debugPrint("upload edilen resmin urlsi : " + url);
-
+    Navigator.pop(context);
 
   }
 
   _openCamera(BuildContext context) async {
-
     var resim = await ImagePicker.pickImage(source: ImageSource.camera);
 
     setState(() {
-     imageFile = resim;
+      imageFile = resim;
     });
 
-    StorageReference ref = FirebaseStorage.instance
-        .ref()
-        .child("user")
-        .child("macit")
-        .child("profil.png");
-    StorageUploadTask uploadTask = ref.putFile(imageFile);
-
-     url = await (await uploadTask.onComplete).ref.getDownloadURL();
-    debugPrint("upload edilen resmin urlsi : " + url);
-
+    Navigator.pop(context);
 
   }
-
-
-
-
 
   Future<void> _showChoiseDialog(BuildContext context) {
     return showDialog(
@@ -83,7 +59,7 @@ class FoodPage extends State<YemekSayfasi> {
         builder: (BuildContext context) {
           return AlertDialog(
               title: Text(
-                "Test sonucu görmek için seçin!",
+                "Fotoğraf eklemek için seçin!",
                 textAlign: TextAlign.center,
               ),
               shape: RoundedRectangleBorder(
@@ -92,12 +68,11 @@ class FoodPage extends State<YemekSayfasi> {
                 height: 120,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    border: Border.all(color: Colors.blue[100], width: 3)),
+                    ),
                 child: ListView(children: <Widget>[
                   ListTile(
                     leading: Icon(Icons.photo_size_select_actual,
-                        color: Colors.blue[200], size: 60),
+                        color: Color(0xFFFc6076), size: 60),
                     title: Text(
                       'Galeri',
                       style: TextStyle(fontSize: 20),
@@ -108,7 +83,7 @@ class FoodPage extends State<YemekSayfasi> {
                   ),
                   ListTile(
                     leading: Icon(Icons.camera,
-                        color: Colors.blue.shade200, size: 60),
+                        color: Color(0xFFFc6076), size: 60),
                     title: Text(
                       'Kamera',
                       style: TextStyle(fontSize: 20),
@@ -230,13 +205,15 @@ class FoodPage extends State<YemekSayfasi> {
                       onTap: () {
                         _showChoiseDialog(context);
                       },
-                      child: new Text("Resim eklemek için tıklayın.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),),
+                      child: new Text(
+                        "Resim eklemek için tıklayın.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                     _decideImageView(),
                     Padding(
@@ -310,19 +287,49 @@ class FoodPage extends State<YemekSayfasi> {
   }
 
   void createData() async {
+
+
+    StorageReference ref = FirebaseStorage.instance
+        .ref()
+        .child("user")
+        .child("kadriye")
+        .child("$_formKey");
+    StorageUploadTask uploadTask = ref.putFile(imageFile);
+
+    url = await (await uploadTask.onComplete).ref.getDownloadURL();
+    debugPrint("upload edilen resmin urlsi : " + url);
+
+
     if (_formKey.currentState.validate() &&
         _formKey2.currentState.validate() &&
         _formKey3.currentState.validate()) {
       _formKey.currentState.save();
       _formKey2.currentState.save();
       _formKey3.currentState.save();
-      DocumentReference ref = await db
-          .collection('post')
-          .add({'name': '$name', 'material': "$malzeme", 'recipe': "$yapilis",
-        'image': "$url"});
+      DocumentReference ref = await db.collection('post').add({
+        'name': '$name',
+        'material': "$malzeme",
+        'recipe': "$yapilis",
+        'image': "$url"
+      });
       setState(() => id = ref.documentID);
       print(ref.documentID);
     }
-  }
 
+    Fluttertoast.showToast(
+        msg: "Yeni tarif kaydedildi!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 1,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        fontSize: 12.0
+    );
+
+
+    MaterialPageRoute(
+        builder: (context) => Anasayfa());
+
+
+  }
 }
