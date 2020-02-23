@@ -138,6 +138,7 @@ class HomePage extends State<Anasayfa> {
                                                   children: <Widget>[
                                                     Text(
                                                       "Yemek adı: ",
+                                                      textAlign: TextAlign.center,
                                                       style: TextStyle(
                                                           fontSize: 16,
                                                           fontWeight:
@@ -145,10 +146,13 @@ class HomePage extends State<Anasayfa> {
                                                           color: Color(
                                                               0xFFFc6076)),
                                                     ),
-                                                    Text(
-                                                      "${mypost['name']}",
-                                                      style: TextStyle(
-                                                          fontSize: 16),
+                                                    Expanded(
+                                                      child: Text(
+                                                        "${mypost['name']}",
+                                                        style: TextStyle(
+                                                            fontSize: 16),
+                                                        textAlign: TextAlign.center,
+                                                      ),
                                                     ),
                                                   ],
                                                 )),
@@ -160,6 +164,7 @@ class HomePage extends State<Anasayfa> {
                                                 children: <Widget>[
                                                   Text(
                                                     "Malzemeler: ",
+                                                    textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         fontWeight:
@@ -167,10 +172,13 @@ class HomePage extends State<Anasayfa> {
                                                         color:
                                                             Color(0xFFFc6076)),
                                                   ),
-                                                  Text(
-                                                    "${mypost['material']}",
-                                                    style:
-                                                        TextStyle(fontSize: 16),
+                                                  Expanded(
+                                                    child: Text(
+                                                      "${mypost['material']}",
+                                                      textAlign: TextAlign.center,
+                                                      style:
+                                                          TextStyle(fontSize: 16),
+                                                    ),
                                                   ),
                                                 ],
                                               )),
@@ -183,6 +191,7 @@ class HomePage extends State<Anasayfa> {
                                                 children: <Widget>[
                                                   Text(
                                                     "Yapılışı: ",
+                                                    textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         fontWeight:
@@ -190,10 +199,13 @@ class HomePage extends State<Anasayfa> {
                                                         color:
                                                             Color(0xFFFc6076)),
                                                   ),
-                                                  Text(
-                                                    "${mypost['recipe']}",
-                                                    style:
-                                                        TextStyle(fontSize: 16),
+                                                  Expanded(
+                                                    child: Text(
+                                                      "${mypost['recipe']}",
+                                                      textAlign: TextAlign.center,
+                                                      style:
+                                                      TextStyle(fontSize: 16),
+                                                    ),
                                                   ),
                                                 ],
                                               )),
