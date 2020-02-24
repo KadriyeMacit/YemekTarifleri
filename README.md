@@ -21,7 +21,7 @@ Anasayfada, navigationdrawer kullanımı vardır. ListView yapısı ile de eklen
 
 ![Screenshot_20200223-210951](https://user-images.githubusercontent.com/13748518/75121700-83dc4700-56a7-11ea-8496-5ac0b54f08b7.jpg)
 
-Firebase Cloud kullanarak, metin bazlı verileri veritabanımıza kaydediyoruz.
+Firestore Cloud kullanarak, metin bazlı verileri veritabanımıza kaydediyoruz.
 Resimler için de Firebase Storage kullanıyoruz.
 
 ![Screenshot_20200223-204951](https://user-images.githubusercontent.com/13748518/75121669-3bbd2480-56a7-11ea-9cb4-5e0cd854c987.jpg)
